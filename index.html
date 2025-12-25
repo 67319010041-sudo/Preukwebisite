@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thai Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <main class="main-wrapper">
+        <div class="container">
+            <h1 style="text-align: center;">Thai Weather App</h1>
+
+            <!-- Search -->
+            <div class="search-container">
+                <form id="searchForm" style="display: flex; width: 100%; gap: 10px;">
+                    <input type="text" id="searchInput" class="search-input" placeholder="ค้นหาจังหวัด..." value="Phra Nakhon">
+                    <button type="submit" class="btn-primary">
+                        <i data-lucide="search"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Loading / Error -->
+            <div id="loading" class="detail-item" style="width: 100%; margin: 2rem 0; display: none;">กำลังโหลดข้อมูล...</div>
+            <div id="error" class="detail-item" style="width: 100%; border-color: #ff6b6b; color: #ff6b6b; margin: 2rem 0; display: none;"></div>
+
+            <!-- Display Data -->
+            <div id="weatherContent" style="width: 100%; display: flex; flex-direction: column; align-items: center; display: none;">
+                
+                <div class="weather-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <i data-lucide="map-pin" color="var(--accent-color)" size="24"></i>
+                                <h2 id="cityName">Bangkok</h2>
+                            </div>
+                            <p id="currentDate" style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 1.1rem;"></p>
+
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <i id="weatherIcon" data-lucide="sun" size="64"></i>
+                                <span id="weatherDesc" style="font-size: 1.5rem;">Clear</span>
+                            </div>
+                        </div>
+
+                        <div id="temperature" style="font-size: 5rem; font-weight: bold;">30°</div>
+                    </div>
+
+                    <div class="weather-grid">
+                        <div class="detail-item">
+                            <i data-lucide="droplets" color="#64b5f6" style="margin-bottom: 0.5rem;"></i>
+                            <span class="detail-label">ฝน</span>
+                            <span id="rainChance" class="detail-value">0%</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="wind" color="#81c784" style="margin-bottom: 0.5rem;"></i>
+                            <span class="detail-label">ความชื้น</span>
+                            <span id="humidity" class="detail-value">60%</span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="wind" color="#4db6ac" style="margin-bottom: 0.5rem;"></i>
+                            <span class="detail-label">ลม</span>
+                            <span id="windSpeed" class="detail-value">5 km/h</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart Section -->
+                <div class="weather-card" style="margin-top: 2rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <h3>แนวโน้ม 24 ชม.</h3>
+                        <div class="tab-container" id="chartTabs">
+                            <button class="tab-btn active" data-tab="temp">อุณหภูมิ</button>
+                            <button class="tab-btn" data-tab="rain">ฝน</button>
+                            <button class="tab-btn" data-tab="wind">ลม</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="weatherChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Forecast Row -->
+                <div class="forecast-row">
+                    <h3 style="margin-bottom: 1rem;">พยากรณ์ล่วงหน้า 7 วัน</h3>
+                    <div id="forecastList" class="day-list">
+                        <!-- JS renders items here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
